@@ -1,12 +1,24 @@
-const FormSubmission = require('../models/FormSubmission');
+import Form from "../models/Form";
 
-exports.submitForm = async (req, res) => {
+export const submitForm = async (req, res) => {
   try {
-    const newSubmission = new FormSubmission(req.body);
-    await newSubmission.save();
-    res.status(201).json({ message: 'Form saved!', data: newSubmission });
+    const { name, email, message } = req.body;
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+    const form = new Form({ name, email, message });
+    await form.save();
+    res.status(201).json({ success: true, data: form });
   } catch (err) {
-    console.error('Error saving form:', err);
-    res.status(500).json({ error: 'Failed to save form' });
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getForms = async (req, res) => {
+  try {
+    const forms = (await Form.find()).toSorted({ createdAt: -1 });
+    res.json(forms);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
