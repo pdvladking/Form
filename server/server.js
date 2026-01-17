@@ -7,6 +7,9 @@ const formRoutes = require('./routes/formRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Debug: check if MONGODB_URI is loaded
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+
 // Connect to MongoDB
 connectDB();
 
