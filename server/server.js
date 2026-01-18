@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import formRoutes from "./routes/formRoutes";
+import formRoutes from "./routes/formRoutes.js";
 
 dotenv.config();
 const app = express();
