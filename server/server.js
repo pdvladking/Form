@@ -11,11 +11,18 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-// Use the correct environment variable name (MONGODB_URI)
+// Root route to prevent "Cannot GET /" error
+app.get("/", (req, res) => {
+  res.send("API is live. Use /api/forms to interact.");
+});
+
+// Connect to MongoDB using correct env variable
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error("MongoDB error:", err));
 
+// Form routes
 app.use("/api/forms", formRoutes);
 
+// Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
