@@ -11,9 +11,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("Connected to MongoDB"))
-.catch(err => console.error("MongoDB error:", err));
+// Use the correct environment variable name (MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("MongoDB error:", err));
 
 app.use("/api/forms", formRoutes);
 
