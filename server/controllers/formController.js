@@ -1,4 +1,4 @@
-import Form from "../models/Form";
+import Form from "../models/Form.js";
 
 export const submitForm = async (req, res) => {
   try {
@@ -16,7 +16,7 @@ export const submitForm = async (req, res) => {
 
 export const getForms = async (req, res) => {
   try {
-    const forms = (await Form.find()).toSorted({ createdAt: -1 });
+    const forms = await Form.find().sort({ createdAt: -1 });
     res.json(forms);
   } catch (err) {
     res.status(500).json({ error: err.message });
